@@ -13,6 +13,7 @@ fun main() {
     var count: Int by mutableStateOf(0)
 
     renderComposable(rootElementId = "root") {
+        /*
         Div({ style { padding(25.px) } }) {
             Button(attrs = {
                 onClick { count -= 1 }
@@ -28,6 +29,16 @@ fun main() {
                 onClick { count += 1 }
             }) {
                 Text("+")
+            }
+        }
+         */
+        Table{
+            Tr{
+                for (i in 0..4){
+                    Td{
+                        Text(i.toString())
+                    }
+                }
             }
         }
     }
