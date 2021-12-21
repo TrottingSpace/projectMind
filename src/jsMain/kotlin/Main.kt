@@ -1,8 +1,4 @@
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.Composable
-import org.jetbrains.compose.web.attributes.*
+import androidx.compose.runtime.mutableStateListOf
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
@@ -12,7 +8,7 @@ val trades = listOf("Wine", "Whiskey", "Rum", "Beer")
 val matches = (0..4).map{Random.nextInt(4)}
 
 fun main() {
-    var count: Int by mutableStateOf(0)
+    //var count: Int by mutableStateOf(0)
 
     renderComposable(rootElementId = "root") {
         /*
@@ -34,6 +30,8 @@ fun main() {
             }
         }
          */
+        var choices = mutableStateListOf<List<String>>()
+        val savedChoices = mutableStateListOf("", "", "", "", "")
         Table({
             style {
                 fontSize(50.px)
@@ -50,9 +48,12 @@ fun main() {
             Tr{
                 for (i in 0..4){
                     Td({style{width(100.px)}}){
-                        Select {
-                            trades.forEachIndexed { index, it ->
-                                Option(index.toString()){
+                        Select({
+                            onChange { savedChoices[i] = it.value!! }
+                        }) {
+                            Option(""){Text("Select")}
+                            trades.forEach {
+                                Option(it){
                                     Text(it)
                                 }
                             }
@@ -61,6 +62,15 @@ fun main() {
                     }
                 }
             }
+        }
+
+        Button(attrs = {
+            onClick {
+                choices.add(savedChoices)
+                console.log(choices)
+            }
+        }) {
+            Text("Confirm choices")
         }
     }
 }
