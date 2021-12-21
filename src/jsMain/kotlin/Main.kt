@@ -7,6 +7,8 @@ import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
 
+val trades = listOf("Wine", "Whiskey", "Rum", "Beer")
+
 fun main() {
     var count: Int by mutableStateOf(0)
 
