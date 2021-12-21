@@ -67,7 +67,7 @@ fun main() {
         Button(attrs = {
             onClick {
                 choices.add(savedChoices)
-                console.log(choices)
+                console.log(JSON.stringify(choices))
             }
         }) {
             Text("Confirm choices")
