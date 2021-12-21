@@ -6,8 +6,10 @@ import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
+import kotlin.random.Random
 
 val trades = listOf("Wine", "Whiskey", "Rum", "Beer")
+val matches = (0..4).map{Random.nextInt(4)}
 
 fun main() {
     var count: Int by mutableStateOf(0)
@@ -32,11 +34,30 @@ fun main() {
             }
         }
          */
-        Table{
+        Table({
+            style {
+                fontSize(50.px)
+                //width(100.px)
+            }
+        }){
             Tr{
                 for (i in 0..4){
                     Td{
                         Text(i.toString())
+                    }
+                }
+            }
+            Tr{
+                for (i in 0..4){
+                    Td({style{width(100.px)}}){
+                        Select {
+                            trades.forEachIndexed { index, it ->
+                                Option(index.toString()){
+                                    Text(it)
+                                }
+                            }
+                        }
+                        //Text(i.toString())
                     }
                 }
             }
