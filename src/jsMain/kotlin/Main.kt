@@ -61,10 +61,28 @@ fun main() {
                                 }
                             }
                         }
-                        //Text(i.toString())
                     }
                 }
-            }
+            } //Tr end
+            if (currentRound > 0) {
+                Tr{
+                    for (i in 0..4){
+                        Td({style{width(100.px)}}){
+                            Select({
+                                if (currentRound > 1) { disabled() }
+                                onChange { savedChoices[i] = it.value!! }
+                            }) {
+                                Option(""){Text("Select")}
+                                trades.forEach {
+                                    Option(it){
+                                        Text(it)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } //Tr end
+            } //if end
         }
 
         Button(attrs = {
