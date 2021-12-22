@@ -46,7 +46,7 @@ fun main() {
                         Text(i.toString())
                     }
                 }
-            }
+            } //Tr end
             Tr{ //round 1
                 for (i in 0..4){
                     Td({style{width(100.px)}}){
@@ -61,8 +61,8 @@ fun main() {
                                 }
                             }
                         }
-                    }
-                }
+                    } //Td end
+                } //for end
             } //Tr end
             if (currentRound > 0) {
                 Tr{ //round 1 check
@@ -77,25 +77,30 @@ fun main() {
                             else {
                                 Text("❌")
                             }
-                        }
+                        } //Td end
                     } //for end
                 } //Tr end
                 Tr{ //round 2
                     for (i in 0..4){
                         Td({style{width(100.px)}}){
                             Select({
-                                if (currentRound > 1) { disabled() }
+                                if (currentRound > 1 || matches[i] == choices[0][i]) { disabled() }
                                 onChange { savedChoices[i] = it.value!! }
                             }) {
-                                Option(""){Text("Select")}
-                                trades.forEach {
-                                    Option(it){
-                                        Text(it)
+                                if (matches[i] == choices[0][i]) {
+                                    Option(choices[0][i]) { Text(choices[0][i]) }
+                                }
+                                else {
+                                    Option("") { Text("Select") }
+                                    trades.forEach {
+                                        Option(it) {
+                                            Text(it)
+                                        }
                                     }
                                 }
                             }
                         } //Td end
-                    }
+                    } //for end
                 } //Tr end
             } //if end
             if (currentRound > 1) {
@@ -111,7 +116,7 @@ fun main() {
                             else {
                                 Text("❌")
                             }
-                        }
+                        } //Td end
                     } //for end
                 } //Tr end
                 Tr{ //round 3
@@ -129,7 +134,7 @@ fun main() {
                                 }
                             }
                         } //Td end
-                    }
+                    } //for end
                 } //Tr end
             } //if end
             if (currentRound > 2) {
@@ -148,8 +153,8 @@ fun main() {
                         }
                     } //for end
                 } //Tr end
-            }
-        }
+            } //if end
+        } //table end
 
         Button(attrs = {
             if (savedChoices.any { it.isEmpty() }) { disabled() }
