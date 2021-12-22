@@ -89,6 +89,7 @@ fun main() {
                             }) {
                                 if (matches[i] == choices[0][i]) {
                                     Option(choices[0][i]) { Text(choices[0][i]) }
+                                    savedChoices[i] = matches[i]
                                 }
                                 else {
                                     Option("") { Text("Select") }
