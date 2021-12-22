@@ -78,7 +78,7 @@ fun main() {
                                 Text("❌")
                             }
                         }
-                    }
+                    } //for end
                 } //Tr end
                 Tr{ //round 2
                     for (i in 0..4){
@@ -99,6 +99,21 @@ fun main() {
                 } //Tr end
             } //if end
             if (currentRound > 1) {
+                Tr{ //round 2 check
+                    for (i in 0..4) {
+                        Td({style{width(100.px)}}){
+                            if (matches[i] == choices[1][i]) {
+                                Text("✅")
+                            }
+                            else if (matches.contains(choices[1][i])) {
+                                Text("🟨")
+                            }
+                            else {
+                                Text("❌")
+                            }
+                        }
+                    } //for end
+                } //Tr end
                 Tr{ //round 3
                     for (i in 0..4){
                         Td({style{width(100.px)}}){
@@ -117,6 +132,23 @@ fun main() {
                     }
                 } //Tr end
             } //if end
+            if (currentRound > 2) {
+                Tr{ //round 3 check
+                    for (i in 0..4) {
+                        Td({style{width(100.px)}}){
+                            if (matches[i] == choices[2][i]) {
+                                Text("✅")
+                            }
+                            else if (matches.contains(choices[2][i])) {
+                                Text("🟨")
+                            }
+                            else {
+                                Text("❌")
+                            }
+                        }
+                    } //for end
+                } //Tr end
+            }
         }
 
         Button(attrs = {
