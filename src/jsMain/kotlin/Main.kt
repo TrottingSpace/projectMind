@@ -1,4 +1,5 @@
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.*
+import org.jetbrains.compose.web.attributes.disabled
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
@@ -30,6 +31,7 @@ fun main() {
             }
         }
          */
+        var currentRound by mutableStateOf(0)
         var choices = mutableStateListOf<List<String>>()
         val savedChoices = mutableStateListOf("", "", "", "", "")
         Table({
@@ -49,6 +51,7 @@ fun main() {
                 for (i in 0..4){
                     Td({style{width(100.px)}}){
                         Select({
+                            if (currentRound > 0) { disabled() }
                             onChange { savedChoices[i] = it.value!! }
                         }) {
                             Option(""){Text("Select")}
@@ -65,7 +68,9 @@ fun main() {
         }
 
         Button(attrs = {
+            if (savedChoices.any { it.isEmpty() }) { disabled() }
             onClick {
+                currentRound++
                 choices.add(savedChoices)
                 console.log(JSON.stringify(choices))
             }
