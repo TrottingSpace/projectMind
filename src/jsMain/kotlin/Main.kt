@@ -6,7 +6,7 @@ import org.jetbrains.compose.web.renderComposable
 import kotlin.random.Random
 
 val trades = listOf("Wine", "Whiskey", "Rum", "Beer")
-val matches = (0..4).map{Random.nextInt(4)}
+val matches = (0..4).map{trades[Random.nextInt(4)]}
 
 fun main() {
     //var count: Int by mutableStateOf(0)
@@ -47,7 +47,7 @@ fun main() {
                     }
                 }
             }
-            Tr{
+            Tr{ //round 1
                 for (i in 0..4){
                     Td({style{width(100.px)}}){
                         Select({
@@ -65,7 +65,22 @@ fun main() {
                 }
             } //Tr end
             if (currentRound > 0) {
-                Tr{
+                Tr{ //round 1 check
+                    for (i in 0..4) {
+                        Td({style{width(100.px)}}){
+                            if (matches[i] == savedChoices[i]) {
+                                Text("✅")
+                            }
+                            else if (matches.contains(savedChoices[i])) {
+                                Text("🟨")
+                            }
+                            else {
+                                Text("❌")
+                            }
+                        }
+                    }
+                } //Tr end
+                Tr{ //round 2
                     for (i in 0..4){
                         Td({style{width(100.px)}}){
                             Select({
@@ -79,12 +94,12 @@ fun main() {
                                     }
                                 }
                             }
-                        }
+                        } //Td end
                     }
                 } //Tr end
             } //if end
             if (currentRound > 1) {
-                Tr{
+                Tr{ //round 3
                     for (i in 0..4){
                         Td({style{width(100.px)}}){
                             Select({
@@ -98,7 +113,7 @@ fun main() {
                                     }
                                 }
                             }
-                        }
+                        } //Td end
                     }
                 } //Tr end
             } //if end
