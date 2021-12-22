@@ -124,13 +124,19 @@ fun main() {
                     for (i in 0..4){
                         Td({style{width(100.px)}}){
                             Select({
-                                if (currentRound > 2) { disabled() }
+                                if (currentRound > 2 || matches[i] == choices[1][i]) { disabled() }
                                 onChange { savedChoices[i] = it.value!! }
                             }) {
-                                Option(""){Text("Select")}
-                                trades.forEach {
-                                    Option(it){
-                                        Text(it)
+                                if (matches[i] == choices[1][i]) {
+                                    Option(choices[1][i]) { Text(choices[1][i]) }
+                                    savedChoices[i] = matches[i]
+                                }
+                                else {
+                                    Option("") { Text("Select") }
+                                    trades.forEach {
+                                        Option(it) {
+                                            Text(it)
+                                        }
                                     }
                                 }
                             }
