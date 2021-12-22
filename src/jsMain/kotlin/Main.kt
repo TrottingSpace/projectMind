@@ -32,8 +32,8 @@ fun main() {
         }
          */
         var currentRound by mutableStateOf(0)
-        var choices = mutableStateListOf<List<String>>()
-        val savedChoices = mutableStateListOf("", "", "", "", "")
+        val choices = mutableStateListOf<List<String>>()
+        var savedChoices = mutableStateListOf("", "", "", "", "")
         Table({
             style {
                 fontSize(50.px)
@@ -68,10 +68,10 @@ fun main() {
                 Tr{ //round 1 check
                     for (i in 0..4) {
                         Td({style{width(100.px)}}){
-                            if (matches[i] == savedChoices[i]) {
+                            if (matches[i] == choices[0][i]) {
                                 Text("✅")
                             }
-                            else if (matches.contains(savedChoices[i])) {
+                            else if (matches.contains(choices[0][i])) {
                                 Text("🟨")
                             }
                             else {
@@ -124,6 +124,7 @@ fun main() {
             onClick {
                 currentRound++
                 choices.add(savedChoices)
+                savedChoices = mutableStateListOf("", "", "", "", "")
                 console.log(JSON.stringify(choices))
             }
         }) {
