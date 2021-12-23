@@ -12,7 +12,7 @@ fun main() {
     var currentRound by mutableStateOf(0)
     val choices = mutableStateListOf<List<String>>()
     var savedChoices = mutableStateListOf("", "", "", "", "")
-    var isWin = 0
+    var isWin by mutableStateOf(0)
 
     renderComposable(rootElementId = "root") {
 
@@ -56,7 +56,6 @@ fun main() {
                         Td({style{width(100.px)}}){
                             if (matches[i] == choices[0][i]) {
                                 Text("✅")
-                                isWin++
                             }
                             else if (unmatched.contains(choices[0][i])) {
                                 Text("🟨")
@@ -101,7 +100,6 @@ fun main() {
                         Td({style{width(100.px)}}){
                             if (matches[i] == choices[1][i]) {
                                 Text("✅")
-                                isWin++
                             }
                             else if (unmatched.contains(choices[1][i])) {
                                 Text("🟨")
@@ -146,7 +144,6 @@ fun main() {
                         Td({style{width(100.px)}}){
                             if (matches[i] == choices[2][i]) {
                                 Text("✅")
-                                isWin++
                             }
                             else if (unmatched.contains(choices[2][i])) {
                                 Text("🟨")
@@ -160,14 +157,25 @@ fun main() {
             } //if end
         } //table end
 
-        if (currentRound <= 2 && isWin != 5) {
+        if (isWin == 5) {
+            Text("You Won")
+            console.log("if", "round:", currentRound, "points:", isWin)
+        }
+        else if (currentRound <= 2 && isWin != 5) {
             Button(attrs = {
                 if (savedChoices.any { it.isEmpty() } || currentRound > 2) {
                     disabled()
                 }
                 onClick {
+                    for (i in 0..4){
+                        if (matches[i] == savedChoices[i]){
+                            isWin++
+                        }
+                    }
+                    console.log("onClick 1", "round:", currentRound, "points:", isWin)
+                    if (isWin < 5){ isWin = 0 }
+                    console.log("onClick", "round:", currentRound, "points:", isWin)
                     currentRound++
-                    if (isWin != 5){ isWin = 0 }
                     choices.add(savedChoices)
                     savedChoices = mutableStateListOf("", "", "", "", "")
                     console.log(JSON.stringify(choices))
@@ -176,11 +184,9 @@ fun main() {
                 Text("Confirm choices")
             } //button end
         }
-        else if (isWin == 5) {
-            Text("You Won")
-        }
         else {
             Text("You Lose")
+            console.log("else", "round:", currentRound, "points:", isWin)
         }
     }
 }
