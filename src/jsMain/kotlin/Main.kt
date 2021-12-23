@@ -164,7 +164,8 @@ fun main() {
         } //table end
 
         Button(attrs = {
-            if (savedChoices.any { it.isEmpty() }) { disabled() }
+            if (savedChoices.any { it.isEmpty() } || currentRound > 3) { disabled() }
+            //if (choices[currentRound].any { it.isEmpty() }) { disabled() }
             onClick {
                 currentRound++
                 choices.add(savedChoices)
