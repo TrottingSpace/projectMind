@@ -9,31 +9,13 @@ val trades = listOf("Wine", "Whiskey", "Rum", "Beer")
 val matches = (0..4).map{trades[Random.nextInt(4)]}
 
 fun main() {
-    //var count: Int by mutableStateOf(0)
+    var currentRound by mutableStateOf(0)
+    val choices = mutableStateListOf<List<String>>()
+    var savedChoices = mutableStateListOf("", "", "", "", "")
+    var isWin = 0
 
     renderComposable(rootElementId = "root") {
-        /*
-        Div({ style { padding(25.px) } }) {
-            Button(attrs = {
-                onClick { count -= 1 }
-            }) {
-                Text("-")
-            }
 
-            Span({ style { padding(15.px) } }) {
-                Text("$count")
-            }
-
-            Button(attrs = {
-                onClick { count += 1 }
-            }) {
-                Text("+")
-            }
-        }
-         */
-        var currentRound by mutableStateOf(0)
-        val choices = mutableStateListOf<List<String>>()
-        var savedChoices = mutableStateListOf("", "", "", "", "")
         Table({
             style {
                 fontSize(50.px)
@@ -74,6 +56,7 @@ fun main() {
                         Td({style{width(100.px)}}){
                             if (matches[i] == choices[0][i]) {
                                 Text("✅")
+                                isWin++
                             }
                             else if (unmatched.contains(choices[0][i])) {
                                 Text("🟨")
@@ -118,6 +101,7 @@ fun main() {
                         Td({style{width(100.px)}}){
                             if (matches[i] == choices[1][i]) {
                                 Text("✅")
+                                isWin++
                             }
                             else if (unmatched.contains(choices[1][i])) {
                                 Text("🟨")
@@ -162,6 +146,7 @@ fun main() {
                         Td({style{width(100.px)}}){
                             if (matches[i] == choices[2][i]) {
                                 Text("✅")
+                                isWin++
                             }
                             else if (unmatched.contains(choices[2][i])) {
                                 Text("🟨")
@@ -175,16 +160,27 @@ fun main() {
             } //if end
         } //table end
 
-        Button(attrs = {
-            if (savedChoices.any { it.isEmpty() } || currentRound > 2) { disabled() }
-            onClick {
-                currentRound++
-                choices.add(savedChoices)
-                savedChoices = mutableStateListOf("", "", "", "", "")
-                console.log(JSON.stringify(choices))
-            }
-        }) {
-            Text("Confirm choices")
-        } //button end
+        if (currentRound <= 2 && isWin != 5) {
+            Button(attrs = {
+                if (savedChoices.any { it.isEmpty() } || currentRound > 2) {
+                    disabled()
+                }
+                onClick {
+                    currentRound++
+                    if (isWin != 5){ isWin = 0 }
+                    choices.add(savedChoices)
+                    savedChoices = mutableStateListOf("", "", "", "", "")
+                    console.log(JSON.stringify(choices))
+                }
+            }) {
+                Text("Confirm choices")
+            } //button end
+        }
+        else if (isWin == 5) {
+            Text("You Won")
+        }
+        else {
+            Text("You Lose")
+        }
     }
 }
