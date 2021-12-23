@@ -58,7 +58,7 @@ fun main() {
                                 Text("✅")
                             }
                             else if (unmatched.contains(choices[0][i])) {
-                                Text("🟨")
+                                Text("🔁")
                             }
                             else {
                                 Text("❌")
@@ -102,7 +102,7 @@ fun main() {
                                 Text("✅")
                             }
                             else if (unmatched.contains(choices[1][i])) {
-                                Text("🟨")
+                                Text("🔁")
                             }
                             else {
                                 Text("❌")
@@ -146,7 +146,7 @@ fun main() {
                                 Text("✅")
                             }
                             else if (unmatched.contains(choices[2][i])) {
-                                Text("🟨")
+                                Text("🔁")
                             }
                             else {
                                 Text("❌")
