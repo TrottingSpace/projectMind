@@ -1,4 +1,5 @@
 import androidx.compose.runtime.*
+import kotlinx.browser.window
 import org.jetbrains.compose.web.attributes.disabled
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
@@ -13,26 +14,38 @@ fun main() {
     val choices = mutableStateListOf<List<String>>()
     var savedChoices = mutableStateListOf("", "", "", "", "")
     var isWin by mutableStateOf(0)
+    val boxH: Int = window.innerHeight / 8
+    val boxW: Int = window.innerWidth / 5
+    val boxL: Int = if (boxH > boxW) { boxW } else { boxH }
 
     renderComposable(rootElementId = "root") {
-
+        console.log("Width", window.innerWidth)
+        console.log("Height", window.innerHeight)
         Table({
             style {
-                fontSize(50.px)
-                //width(100.px)
+                border(3.px, LineStyle.Solid, Color.blueviolet)
+                fontSize((boxL * 0.6).px)
+                textAlign("center")
+                property("vertical-align", "center")
             }
         }){
-            Tr{
+            Tr({style{height((boxL * 0.9).px)}}){
                 for (i in 0..4){
-                    Td{
+                    Td({
+                        style{
+                            width((boxL * 0.9).px)
+                            border(3.px, LineStyle.Solid, Color.blueviolet)
+                        }
+                    }){
                         Text(i.toString())
                     }
                 }
             } //Tr end
-            Tr{ //round 1
+            Tr({style{height((boxL * 0.9).px)}}){ //round 1
                 for (i in 0..4){
-                    Td({style{width(100.px)}}){
+                    Td({style{width((boxL * 0.9).px)}}){
                         Select({
+                            style { fontSize((boxL * 0.17).px) }
                             if (currentRound > 0) { disabled() }
                             onChange { savedChoices[i] = it.value!! }
                         }) {
@@ -51,9 +64,9 @@ fun main() {
                     if (it == choices[0][index]){ null }
                     else { it }
                 }
-                Tr{ //round 1 check
+                Tr({style{height((boxL * 0.9).px)}}){ //round 1 check
                     for (i in 0..4) {
-                        Td({style{width(100.px)}}){
+                        Td({style{width((boxL * 0.9).px)}}){
                             if (matches[i] == choices[0][i]) {
                                 Text("✅")
                             }
@@ -66,10 +79,11 @@ fun main() {
                         } //Td end
                     } //for end
                 } //Tr end
-                Tr{ //round 2
+                Tr({style{height((boxL * 0.9).px)}}){ //round 2
                     for (i in 0..4){
-                        Td({style{width(100.px)}}){
+                        Td({style{width((boxL * 0.9).px)}}){
                             Select({
+                                style { fontSize((boxL * 0.17).px) }
                                 if (currentRound > 1 || matches[i] == choices[0][i]) { disabled() }
                                 onChange { savedChoices[i] = it.value!! }
                             }) {
@@ -95,9 +109,9 @@ fun main() {
                     if (it == choices[1][index]){ null }
                     else { it }
                 }
-                Tr{ //round 2 check
+                Tr({style{height((boxL * 0.9).px)}}){ //round 2 check
                     for (i in 0..4) {
-                        Td({style{width(100.px)}}){
+                        Td({style{width((boxL * 0.9).px)}}){
                             if (matches[i] == choices[1][i]) {
                                 Text("✅")
                             }
@@ -110,10 +124,11 @@ fun main() {
                         } //Td end
                     } //for end
                 } //Tr end
-                Tr{ //round 3
+                Tr({style{height((boxL * 0.9).px)}}){ //round 3
                     for (i in 0..4){
-                        Td({style{width(100.px)}}){
+                        Td({style{width((boxL * 0.9).px)}}){
                             Select({
+                                style { fontSize((boxL * 0.17).px) }
                                 if (currentRound > 2 || matches[i] == choices[1][i]) { disabled() }
                                 onChange { savedChoices[i] = it.value!! }
                             }) {
@@ -139,9 +154,9 @@ fun main() {
                     if (it == choices[1][index]){ null }
                     else { it }
                 }
-                Tr{ //round 3 check
+                Tr({style{height((boxL * 0.9).px)}}){ //round 3 check
                     for (i in 0..4) {
-                        Td({style{width(100.px)}}){
+                        Td({style{width((boxL * 0.9).px)}}){
                             if (matches[i] == choices[2][i]) {
                                 Text("✅")
                             }
@@ -163,6 +178,7 @@ fun main() {
         }
         else if (currentRound <= 2 && isWin != 5) {
             Button(attrs = {
+                style { fontSize((boxL * 0.25).px) }
                 if (savedChoices.any { it.isEmpty() } || currentRound > 2) {
                     disabled()
                 }
