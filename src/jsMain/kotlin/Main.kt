@@ -173,7 +173,7 @@ fun main() {
         } //table end
 
         if (isWin == 5) {
-            Text("You Won")
+            Span({ style { fontSize((boxL * 0.25).px) } }) { Text("You Won 👍") }
             console.log("if", "round:", currentRound, "points:", isWin)
         }
         else if (currentRound <= 2 && isWin != 5) {
@@ -201,7 +201,7 @@ fun main() {
             } //button end
         }
         else {
-            Text("You Lose")
+            Span({ style { fontSize((boxL * 0.25).px) } }) { Text("You Lose 👎") }
             console.log("else", "round:", currentRound, "points:", isWin)
         }
     }
