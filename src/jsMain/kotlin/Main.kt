@@ -65,13 +65,17 @@ fun main() {
                 } //for end
             } //Tr end
             if (currentRound > 0) {
+                val unmatched = matches.mapIndexedNotNull{index, it ->
+                    if (it == choices[0][index]){ null }
+                    else { it }
+                }
                 Tr{ //round 1 check
                     for (i in 0..4) {
                         Td({style{width(100.px)}}){
                             if (matches[i] == choices[0][i]) {
                                 Text("✅")
                             }
-                            else if (matches.contains(choices[0][i])) {
+                            else if (unmatched.contains(choices[0][i])) {
                                 Text("🟨")
                             }
                             else {
@@ -105,13 +109,17 @@ fun main() {
                 } //Tr end
             } //if end
             if (currentRound > 1) {
+                val unmatched = matches.mapIndexedNotNull{index, it ->
+                    if (it == choices[1][index]){ null }
+                    else { it }
+                }
                 Tr{ //round 2 check
                     for (i in 0..4) {
                         Td({style{width(100.px)}}){
                             if (matches[i] == choices[1][i]) {
                                 Text("✅")
                             }
-                            else if (matches.contains(choices[1][i])) {
+                            else if (unmatched.contains(choices[1][i])) {
                                 Text("🟨")
                             }
                             else {
@@ -162,18 +170,23 @@ fun main() {
                 } //Tr end
             } //if end
         } //table end
-
-        Button(attrs = {
-            if (savedChoices.any { it.isEmpty() } || currentRound > 3) { disabled() }
-            //if (choices[currentRound].any { it.isEmpty() }) { disabled() }
-            onClick {
-                currentRound++
-                choices.add(savedChoices)
-                savedChoices = mutableStateListOf("", "", "", "", "")
-                console.log(JSON.stringify(choices))
-            }
-        }) {
-            Text("Confirm choices")
+        if (currentRound > 2){
+            //
+        }
+        else {
+            Button(attrs = {
+                if (savedChoices.any { it.isEmpty() } || currentRound > 2) {
+                    disabled()
+                }
+                onClick {
+                    currentRound++
+                    choices.add(savedChoices)
+                    savedChoices = mutableStateListOf("", "", "", "", "")
+                    console.log(JSON.stringify(choices))
+                }
+            }) {
+                Text("Confirm choices")
+            } //button end
         }
     }
 }
