@@ -153,13 +153,17 @@ fun main() {
                 } //Tr end
             } //if end
             if (currentRound > 2) {
+                val unmatched = matches.mapIndexedNotNull{index, it ->
+                    if (it == choices[1][index]){ null }
+                    else { it }
+                }
                 Tr{ //round 3 check
                     for (i in 0..4) {
                         Td({style{width(100.px)}}){
                             if (matches[i] == choices[2][i]) {
                                 Text("✅")
                             }
-                            else if (matches.contains(choices[2][i])) {
+                            else if (unmatched.contains(choices[2][i])) {
                                 Text("🟨")
                             }
                             else {
