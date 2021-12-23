@@ -170,23 +170,17 @@ fun main() {
                 } //Tr end
             } //if end
         } //table end
-        if (currentRound > 2){
-            //
-        }
-        else {
-            Button(attrs = {
-                if (savedChoices.any { it.isEmpty() } || currentRound > 2) {
-                    disabled()
-                }
-                onClick {
-                    currentRound++
-                    choices.add(savedChoices)
-                    savedChoices = mutableStateListOf("", "", "", "", "")
-                    console.log(JSON.stringify(choices))
-                }
-            }) {
-                Text("Confirm choices")
-            } //button end
-        }
+
+        Button(attrs = {
+            if (savedChoices.any { it.isEmpty() } || currentRound > 2) { disabled() }
+            onClick {
+                currentRound++
+                choices.add(savedChoices)
+                savedChoices = mutableStateListOf("", "", "", "", "")
+                console.log(JSON.stringify(choices))
+            }
+        }) {
+            Text("Confirm choices")
+        } //button end
     }
 }
