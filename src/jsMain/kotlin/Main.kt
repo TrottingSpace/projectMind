@@ -6,7 +6,7 @@ import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
 import kotlin.random.Random
 
-val trades = listOf("Wine", "Whiskey", "Rum", "Beer")
+val trades = listOf("Wine", "Whiskey", "Rum", "Beer", "Tequila")
 val matches = (0..4).map{trades[Random.nextInt(4)]}
 
 fun main() {
@@ -14,11 +14,11 @@ fun main() {
     val choices = mutableStateListOf<List<String>>()
     var savedChoices = mutableStateListOf("", "", "", "", "")
     var isWin by mutableStateOf(0)
-    val boxH: Int = window.innerHeight / 8
-    val boxW: Int = window.innerWidth / 5
-    val boxL: Int = if (boxH > boxW) { boxW } else { boxH }
 
     renderComposable(rootElementId = "root") {
+        val boxH: Int = window.innerHeight / 8
+        val boxW: Int = window.innerWidth / 5
+        val boxL: Int = if (boxH > boxW) { boxW } else { boxH }
         console.log("Width", window.innerWidth)
         console.log("Height", window.innerHeight)
         Table({
